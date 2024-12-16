@@ -1,25 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Define the Node structure
+
 struct Node {
     int data;
     struct Node* next;
 };
 
-// Function to create a new node
+
 struct Node* createNode(int data) {
     struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
     if (newNode == NULL) {
         printf("Memory allocation failed.\n");
-        exit(1);  // Exit if memory allocation fails
+        exit(1);  
     }
     newNode->data = data;
     newNode->next = NULL;
     return newNode;
 }
 
-// Function to insert a new element at the beginning of the singly linked list
+
 void insertAtFirst(struct Node** head, int data) {
     struct Node* newNode = createNode(data);
     newNode->next = *head;
@@ -40,7 +40,7 @@ void insertAtEnd(struct Node** head, int data) {
     temp->next = newNode;
 }
 
-// Function to insert a new element at a specific position in the singly linked list
+
 void insertAtPosition(struct Node** head, int data, int position) {
     if (position < 0) {
         printf("Invalid position\n");
@@ -65,7 +65,7 @@ void insertAtPosition(struct Node** head, int data, int position) {
     temp->next = newNode;
 }
 
-// Function to print the linked list
+
 void print(struct Node* head) {
     struct Node* temp = head;
     while (temp != NULL) {
@@ -75,7 +75,7 @@ void print(struct Node* head) {
     printf("NULL\n");
 }
 
-// Function to delete the first node of the singly linked list
+
 void deleteFromFirst(struct Node** head) {
     if (*head == NULL) {
         printf("List is empty\n");
@@ -86,7 +86,7 @@ void deleteFromFirst(struct Node** head) {
     free(temp);
 }
 
-// Function to delete the last node of the singly linked list
+
 void deleteFromEnd(struct Node** head) {
     if (*head == NULL) {
         printf("List is empty\n");
@@ -105,7 +105,7 @@ void deleteFromEnd(struct Node** head) {
     temp->next = NULL;
 }
 
-// Function to delete a node at a specific position in the singly linked list
+
 void deleteAtPosition(struct Node** head, int position) {
     if (*head == NULL) {
         printf("List is empty\n");
@@ -133,7 +133,7 @@ void deleteAtPosition(struct Node** head, int position) {
     temp->next = next;
 }
 
-// Function to free all nodes of the linked list (cleanup)
+
 void freeList(struct Node* head) {
     struct Node* temp;
     while (head != NULL) {
@@ -192,8 +192,8 @@ int main() {
 
             case 5:
                 printf("Exiting...\n");
-                freeList(head);  // Clean up the allocated memory before exiting
-                return 0;  // Exit the program
+                freeList(head);  
+                return 0;  
 
             default:
                 printf("Invalid choice. Please try again.\n");
