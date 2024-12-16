@@ -1,0 +1,145 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+void deleteFromFirst(struct Node** head) {
+    if (*head == NULL) {
+        printf("List is empty\n");
+        return;
+    }
+    struct Node* temp = *head;
+    *head = temp->next;
+    free(temp);
+
+}
+
+
+void deleteFromEnd(struct Node** head) {
+    if (*head == NULL) {
+        printf("List is empty\n");
+        return;
+    }
+    struct Node* temp = *head;
+    if (temp->next == NULL) {
+        free(temp);
+        *head = NULL;
+        return;
+    }
+    while (temp->next->next != NULL) {
+        temp = temp->next;
+    }
+    free(temp->next);
+    temp->next = NULL;
+}
+
+
+void deleteAtPosition(struct Node** head, int position) {
+    if (*head == NULL) {
+        printf("List is empty\n");
+        return;
+    }
+    struct Node* temp = *head;
+    if (position == 0) {
+        deleteFromFirst(head);
+    return;
+    }
+    for (int i = 0; temp != NULL && i < position - 1; i++) {
+        temp = temp->next;
+
+    }
+    if (temp == NULL || temp->next == NULL) {
+        printf("Position out of range\n");
+        return;
+    }
+    struct Node* next = temp->next->next;
+    free(temp->next);
+    temp->next = next;
+    }
+
+
+void print(struct Node* head) {
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+
+    int choice, data, position;
+    struct Node* head = (struct Node*)malloc(sizeof(struct Node));
+    struct Node* second = (struct Node*)malloc(sizeof(struct Node));
+    struct Node* third = (struct Node*)malloc(sizeof(struct Node));
+    struct Node* fourth = (struct Node*)malloc(sizeof(struct Node));
+
+    
+    head->data = 10;
+    head->next = second;
+
+    second->data = 20;
+    second->next = third;
+
+    third->data = 5;
+    third->next = fourth;
+
+    fourth->data = 30;
+    fourth->next = NULL;
+
+    
+    printf("Predefined Linked List:\n");
+    print(head);
+
+    while (1) {
+        printf("1. Delete from Beginning\n");
+        printf("2. Delete from End\n");
+        printf("3. Delete from Specific Position\n");
+        printf("4. Print Linked List\n");
+        printf("5. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+
+            case 1:
+                printf("Linked list after deleting the first node:\n");
+                deleteFromFirst(&head);
+                print(head);
+                break;
+
+            case 2:
+                printf("Linked list after deleting the last node:\n");
+                deleteFromEnd(&head);
+                print(head);
+                break;
+
+            case 3:
+                printf("Enter the position to delete from: ");
+                scanf("%d", &position);
+                deleteAtPosition(&head, position);
+                printf("Linked list after deleting the node at position %d:\n", position);
+                print(head);
+                break;
+
+            case 4:
+                printf("Current Linked List:\n");
+                print(head);
+                break;
+
+            case 5:
+                printf("Exiting...\n");
+                exit(0);
+
+            default:
+                printf("Invalid choice. Please try again.\n");
+                break;
+        }
+    }
+
+    return 0;
+}
